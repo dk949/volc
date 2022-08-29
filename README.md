@@ -13,8 +13,11 @@ ar rcs libvolc.a volc.o
 ```
 
 Another option would be to simply include `volc.c` and `volc.h` into your
-application source tree. Note that you would need to ling against `asound` and
+application source tree. Note that you would need to link against `asound` and
 the math library.
+
+If used in a C++ application, make sure to still compile `volc.c` with a C
+compiler.
 
 ## Quick start
 
@@ -39,7 +42,7 @@ int main() {
         printf("initialisation failed: %s\n", volc_err_str());
         return 1;
     }
-     /*volc_volume_ctl returns current volume state or an error
+     /*volc_volume_ctl returns current volume state or an error.
        it can be used to set the volume as well (see the docs).*/
     volc_volume_state_t res = volc_volume_ctl(volc, VOLC_GET_VOLUME);
     if (res.err < 0)
