@@ -31,7 +31,7 @@ float convert_prange_back(long val, float min, float max) {
     VERBOSE_RET(float, "%f", ((100.f * (float)val) - min) / (max - min));
 }
 
-// volume as percentage: 100% is 100.0
+/* volume as percentage: 100% is 100.0*/
 static float get_set_volume(snd_mixer_elem_t *elem, snd_mixer_selem_channel_id_t chn, volc_volume_t volume) {
     VERBOSE_PRINT("set_volume_simple: elem = %llu, chn = %d, volume.action = %d, "
                   "volume.volume = %f",
@@ -177,9 +177,16 @@ extern volc_volume_state_t volc_volume_ctl(
 extern volc_t *volc_init(char const *selector, unsigned int selector_index, char const *card) {
     int err = 0;
     memset(err_msg, 0, sizeof(err_msg));
+
     volc_t *volc = malloc(sizeof(volc_t));
-    snd_mixer_selem_id_alloca(&volc->sid);
+
     volc->card = card;
+
+    char buf[snd_mixer_selem_id_sizeof()];
+    volc->sid = (snd_mixer_selem_id_t *)buf;
+    memset(*&volc->sid, 0, snd_mixer_selem_id_sizeof());
+
+
 
     snd_mixer_selem_id_set_index(volc->sid, selector_index);
     snd_mixer_selem_id_set_name(volc->sid, selector);
