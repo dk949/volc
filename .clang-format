@@ -176,7 +176,7 @@ SpacesInLineCommentPrefix:
   Maximum: -1
 
 # Clang-format 14
-PackConstructorInitializers: CurrentLine
+PackConstructorInitializers: Never
 PenaltyBreakOpenParenthesis: 0
 QualifierAlignment: Custom
 QualifierOrder:
